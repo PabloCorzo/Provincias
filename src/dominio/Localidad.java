@@ -2,7 +2,7 @@ package dominio;
 public class Localidad {
 	private String nombre;
 	private int habitantes_localidad;
-	public void localidad(String nombre,int habitantes_localidad){
+	public Localidad(String nombre,int habitantes_localidad){
 		this.nombre = nombre;
 		this.habitantes_localidad = habitantes_localidad;
 	}
@@ -19,6 +19,9 @@ public class Localidad {
 		return this.habitantes_localidad;
 	}
 	public String toString(){
-		return ("La localidad " + this.nombre + "tiene " + this.habitantes_localidad + "habitantes");
+		String result =  ("La localidad " + this.nombre + " tiene " + this.habitantes_localidad + " habitantes");
+		return result;
 	}
+	// Localidad local2 = new Localidad("Villalba", 72);
+	// Localidad local1 = new Localidad("Socovo", 23);
 }

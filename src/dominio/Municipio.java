@@ -15,13 +15,22 @@ public class Municipio {
     public String getNombre(){
         return this.nombre_municipio;
     }
+    public void addLocalidad(Localidad local){
+        localidades.add(local);
+    }
     public String toString(){
         String result = "El municipio de " + this.nombre_municipio + " esta compuesto por: ";
         for(Localidad localidad : localidades) {
             result += (localidad.getNombre());
-            result += (", ");
+            if(localidades.indexOf(localidad) == localidades.size()-2){
+                result += " y ";
+            }
+            else if(localidades.indexOf(localidad) == localidades.size()-1){
+                ;
+            }
+            else{result += (", ");}
         } 
-        result += "y tiene " + this.contarHabitantesMunicipio() + " habitantes";
+        result += " y tiene " + this.contarHabitantesMunicipio() + " habitantes";
         return result;
     } 
     public Municipio(String nombre, Localidad loc1,Localidad loc2){

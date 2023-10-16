@@ -22,6 +22,4 @@ public class Localidad {
 		String result =  ("La localidad " + this.nombre + " tiene " + this.habitantes_localidad + " habitantes");
 		return result;
 	}
-	// Localidad local2 = new Localidad("Villalba", 72);
-	// Localidad local1 = new Localidad("Socovo", 23);
 }

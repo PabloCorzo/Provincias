@@ -13,15 +13,25 @@ public class Provincia {
         }
         return this.habitantes_provincia;
     }
+    public void addMunicipio(Municipio mun){
+        municipios.add(mun);
+    }
     public String toString(){
         String result = "El municipio de " + this.nombre_provincia + " esta compuesto por: ";
         for(Municipio municipio: municipios) {
             result += (municipio.getNombre());
-            result += (", ");
+            if(municipios.indexOf(municipio) == municipios.size() - 2){
+                result += "y";
+            }
+            else if(municipios.indexOf(municipio) == municipios.size() - 1){
+                ;
+            }
+            else{result += (", ");}
         } 
         result += " y tiene " + this.contarHabitantesProvincia() + " habitantes";
         return result;
     } 
+
     public Provincia(String nombre, Municipio mun1, Municipio mun2){
         this.nombre_provincia = nombre;
         municipios.add(mun1);

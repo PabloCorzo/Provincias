@@ -39,10 +39,4 @@ public class Municipio {
         localidades.add(loc2);
         this.habitantes_municipio = contarHabitantesMunicipio();
     }
-    public static void main(String[] args) {
-        Localidad local1 = new Localidad("john", 2);
-        Localidad local2 = new Localidad("peppord", 3);
-        Municipio john = new Municipio("John Peppord", local1,local2);
-        System.out.println(john.toString());
-    }
 }

@@ -100,9 +100,19 @@ public class Interfaz
                 }
             Localidad l = new Localidad(nombre_loc,num_habitantes);
             Municipio m = new Municipio(nombre_mun);
+            boolean existe = false;
             for(Provincia p : provincias){
-                for(Municipio m : p.)
+                for(Municipio n : p.getMunicipios()){
+                    if(n.getNombre().equalsIgnoreCase(nombre_mun)){
+                        existe = true;
+                        m = n;
+                    }
+                }
             }
+            if(existe){
+                m.getLocalidades().add(l);
+            }
+            else{System.out.println("No se encontro el municipio.");}
             sc.close();
         }
     }

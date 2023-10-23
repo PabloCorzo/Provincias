@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class Municipio {
     private int habitantes_municipio;
     private String nombre_municipio;
-    static ArrayList <Localidad> localidades = new ArrayList<>();
+    ArrayList <Localidad> localidades = new ArrayList<>();
     public int contarHabitantesMunicipio(){
         this.habitantes_municipio = 0;
         for(Localidad localidad : localidades ){
@@ -33,6 +33,10 @@ public class Municipio {
         result += " y tiene " + this.contarHabitantesMunicipio() + " habitantes";
         return result;
     } 
+
+    public ArrayList <Localidad> getLocalidades(){
+        return this.localidades;
+    }
     public Municipio(String nombre){
         this.nombre_municipio = nombre;
         this.habitantes_municipio = contarHabitantesMunicipio();

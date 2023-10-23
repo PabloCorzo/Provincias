@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class Provincia {
     private int habitantes_provincia;
     private String nombre_provincia;
-    static ArrayList <Municipio> municipios = new ArrayList<>();
+    ArrayList <Municipio> municipios = new ArrayList<>();
     
     public int contarHabitantesProvincia(){
         this.habitantes_provincia = 0;
@@ -32,6 +32,10 @@ public class Provincia {
         return result;
     } 
 
+    public ArrayList <Municipio> getMunicipios(){
+        return this.municipios;
+    }
+    
     public Provincia(String nombre){
         this.nombre_provincia = nombre;
         this.habitantes_provincia = contarHabitantesProvincia();

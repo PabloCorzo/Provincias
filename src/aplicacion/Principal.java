@@ -6,7 +6,7 @@ public class Principal {
         Localidad local2 = new Localidad("Castellon", 3);
         System.out.println(local1.toString());
         System.out.println(local2.toString());    
-        Municipio madrid = new Municipio("Madrid", local1,local2);
+        Municipio madrid = new Municipio("Madrid");
         System.out.println(madrid.toString());
         Localidad local3 = new Localidad("Alicante", 9);
         madrid.addLocalidad(local3);

@@ -33,10 +33,8 @@ public class Municipio {
         result += " y tiene " + this.contarHabitantesMunicipio() + " habitantes";
         return result;
     } 
-    public Municipio(String nombre, Localidad loc1,Localidad loc2){
+    public Municipio(String nombre){
         this.nombre_municipio = nombre;
-        localidades.add(loc1);
-        localidades.add(loc2);
         this.habitantes_municipio = contarHabitantesMunicipio();
     }
 }

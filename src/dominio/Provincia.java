@@ -32,13 +32,13 @@ public class Provincia {
         return result;
     } 
 
-    public Provincia(String nombre, Municipio mun1, Municipio mun2){
+    public Provincia(String nombre){
         this.nombre_provincia = nombre;
-        municipios.add(mun1);
-        municipios.add(mun2);
         this.habitantes_provincia = contarHabitantesProvincia();
     }
-    public static void main(String[] args) {
+    
+    public String getNombre(){
+        return this.nombre_provincia;
     }
 }
 

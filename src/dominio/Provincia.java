@@ -18,7 +18,7 @@ public class Provincia implements Serializable{
         municipios.add(mun);
     }
     public String toString(){
-        String result = "El municipio de " + this.nombre_provincia + " esta compuesto por: ";
+        String result = "La provincia de " + this.nombre_provincia + " esta compuesto por: ";
         for(Municipio municipio: municipios) {
             result += (municipio.getNombre());
             if(municipios.indexOf(municipio) == municipios.size() - 2){

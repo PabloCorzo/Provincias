@@ -83,26 +83,29 @@ public class Interfaz implements Serializable
 
         public static void insertarMunicipio(String peticion){
             String [] split = peticion.split(" ");
-            String nombre_prov = split[2];
-            String nombre_mun = split[1];
+            String nombre_prov = split[1];
+            String nombre_mun = split[2];
             Municipio m = new Municipio(nombre_mun);
-            Provincia p = new Provincia(nombre_prov);
-            int indice = provincias.indexOf(p);
+            Provincia p2 = new Provincia("");
+            for(Provincia p : provincias){
+                if(p.getNombre().equalsIgnoreCase(nombre_prov)){
+                     p2 = p;
+                }
+            }
+            int indice = provincias.indexOf(p2);
             if(indice != -1){
                 provincias.get(indice).addMunicipio(m);
             }
             else{
+                System.out.println(split[2]);
                 System.out.println("La provincia no existe");
             }
         }
 
         public static void insertarLocalidad(String peticion){
             String[] split = peticion.split(" ");
-            System.out.println("a que municipio quiere introducir la localidad? ");
             String nombre_loc = split[2];
-            System.out.println("Nombre de la localidad: ");
             String nombre_mun = split[1];
-            System.out.println("Numero de habitantes: ");
             String input_habitantes = split[3];
                 int num_habitantes = 0;
                 if(input_habitantes != ""){
@@ -131,10 +134,10 @@ public class Interfaz implements Serializable
         public static void help(){
             System.out.println("Los metodos son:\n \"salir\" para salir \n \"help\" para ayuda \n \"mostrar\" para mostrar localidades, municipios y provincias \n \"addlocalidad\" + municipio + nombre + habitantes \n  \"addmunicipio\" + provincia + nombre \n \"addprovincia\" + nombre ");
         }
-
+        
         public static void mostrar(){   
             System.out.println("funciona");
-            System.out.println(provincias);
+            // System.out.println(provincias);
             for(Provincia p : provincias){
                 System.out.println(p.toString());
                 for(Municipio m : p.getMunicipios()){
@@ -159,8 +162,10 @@ public class Interfaz implements Serializable
                     obj.writeObject(obj);
                     System.out.println("Guardado");
                 } catch(Exception e){
-                System.out.println("Error al guardar");;
+                System.out.println("Error al guardar");
+                System.out.println(e);
                 };
+
                 return false;
             }
             else if(orden.equalsIgnoreCase("help")){

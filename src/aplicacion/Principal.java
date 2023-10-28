@@ -1,16 +1,18 @@
 package aplicacion;
-import dominio.*;
+import interfaz.Interfaz;
+import java.util.Scanner;
+
 public class Principal {
     public static void main(String[] args) {
-        Localidad local1 = new Localidad("Valencia", 2);
-        Localidad local2 = new Localidad("Castellon", 3);
-        System.out.println(local1.toString());
-        System.out.println(local2.toString());    
-        Municipio madrid = new Municipio("Madrid");
-        System.out.println(madrid.toString());
-        Localidad local3 = new Localidad("Alicante", 9);
-        madrid.addLocalidad(local3);
-        System.out.println(madrid.toString());
-
+        String peticion;
+        Scanner sc = new Scanner(System.in);
+        Interfaz.help();
+        do {
+            Interfaz.prompt();
+            peticion = Interfaz.leerPeticion(sc);
+            System.out.println("Peticion: " + peticion);
+            Interfaz.choiceMaker(peticion);
+        }while(Interfaz.procesarPeticion(peticion));
+        sc.close();
     }
 }

@@ -1,11 +1,30 @@
 package interfaz;
 import dominio.*;
 import java.util.*;
+import java.io.Serializable;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
-public class Interfaz 
+public class Interfaz implements Serializable
 {
-    static ArrayList <Provincia> provincias= new ArrayList <>();
+
+    public static ArrayList <Provincia> provincias= new ArrayList <>();
+    public Interfaz(){
+    ObjectInputStream obj;
+    File file = new File("provincias.txt");
+    try{
+        obj = new ObjectInputStream(new FileInputStream(file));
+        provincias = (ArrayList <Provincia>)obj.readObject();
+    } catch(Exception e){
+        provincias = new ArrayList<>();
+    };
+}
+
     public static ArrayList <Provincia> leer ()
+
     {
         Scanner sc = new Scanner (System.in);
         String nombre_provincia;
@@ -47,13 +66,12 @@ public class Interfaz
             }//if (nombre_provincias!="")
         }
         while (nombre_provincia!="");
-        sc.close();
         return provincias;
         }
-        public static void insertarProvincia(){
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Defina el nombre de la provincia: ");
-            String nombre_provincia = sc.nextLine();
+        public static void insertarProvincia(String peticion){
+            String [] split = peticion.split(" ");
+            String nombre_provincia = split[1];
+            System.out.println(nombre_provincia);
             if(nombre_provincia != ""){
                 Provincia p = new Provincia(nombre_provincia);
                 provincias.add(p);
@@ -61,15 +79,12 @@ public class Interfaz
             else{
                 System.out.println("Nombre no insertado.");
             }
-            sc.close();
         }
 
-        public static void insertarMunicipio(){
-            Scanner sc  = new Scanner(System.in);
-            System.out.println("A que provincia pertenece el municipio?");
-            String nombre_prov = sc.nextLine();
-            System.out.println("Nombre del municipio: ");
-            String nombre_mun = sc.nextLine();
+        public static void insertarMunicipio(String peticion){
+            String [] split = peticion.split(" ");
+            String nombre_prov = split[2];
+            String nombre_mun = split[1];
             Municipio m = new Municipio(nombre_mun);
             Provincia p = new Provincia(nombre_prov);
             int indice = provincias.indexOf(p);
@@ -79,17 +94,16 @@ public class Interfaz
             else{
                 System.out.println("La provincia no existe");
             }
-            sc.close();
         }
 
-        public static void insertarLocalidad(){
-            Scanner sc = new Scanner(System.in);
+        public static void insertarLocalidad(String peticion){
+            String[] split = peticion.split(" ");
             System.out.println("a que municipio quiere introducir la localidad? ");
-            String nombre_loc = sc.nextLine();
+            String nombre_loc = split[2];
             System.out.println("Nombre de la localidad: ");
-            String nombre_mun = sc.nextLine();
+            String nombre_mun = split[1];
             System.out.println("Numero de habitantes: ");
-            String input_habitantes = sc.nextLine();
+            String input_habitantes = split[3];
                 int num_habitantes = 0;
                 if(input_habitantes != ""){
                     try {
@@ -113,6 +127,81 @@ public class Interfaz
                 m.getLocalidades().add(l);
             }
             else{System.out.println("No se encontro el municipio.");}
-            sc.close();
         }
+        public static void help(){
+            System.out.println("Los metodos son:\n \"salir\" para salir \n \"help\" para ayuda \n \"mostrar\" para mostrar localidades, municipios y provincias \n \"addlocalidad\" + municipio + nombre + habitantes \n  \"addmunicipio\" + provincia + nombre \n \"addprovincia\" + nombre ");
+        }
+
+        public static void mostrar(){   
+            System.out.println("funciona");
+            System.out.println(provincias);
+            for(Provincia p : provincias){
+                System.out.println(p.toString());
+                for(Municipio m : p.getMunicipios()){
+                    System.out.println(m.toString());
+                    for(Localidad l : m.getLocalidades()){
+                        System.out.println(l.toString());
+                    }
+                }
+            }
+        }
+        public static String leerPeticion(Scanner sc){
+            String peticion = sc.nextLine();
+            return peticion;
+        }
+        public static boolean procesarPeticion(String orden){
+            String[] p = orden.split(" ");
+            if(orden.equalsIgnoreCase("salir")){
+                ObjectOutputStream obj;
+                File file = new File("provincias.txt");
+                try{
+                    obj = new ObjectOutputStream(new FileOutputStream(file));
+                    obj.writeObject(obj);
+                    System.out.println("Guardado");
+                } catch(Exception e){
+                System.out.println("Error al guardar");;
+                };
+                return false;
+            }
+            else if(orden.equalsIgnoreCase("help")){
+                ;
+            }
+            else if(orden.equalsIgnoreCase("mostrar")){
+                ;
+            }
+            else if(p.length != 2 &&  orden.equalsIgnoreCase("salir") == false && orden.equalsIgnoreCase("help") == false  && orden.equalsIgnoreCase("mostrar")){
+                System.out.println("Instruccion incorrecta");               
+            }
+            else if(orden.equalsIgnoreCase("addlocalidad")){
+                ;
+            }
+            else if (orden.equalsIgnoreCase("addmunicipio")){
+                ;
+            }
+            else if(orden.equalsIgnoreCase("addprovincia")){
+                ;
+            }
+            return true;
+        }
+    public static void choiceMaker(String orden){
+        String [] split = orden.split(" ");
+        if(split[0].equalsIgnoreCase("mostrar")){
+            mostrar();
+        }
+        if(split[0].equalsIgnoreCase("help")){
+            help();
+        }
+        if(split[0].equalsIgnoreCase("addlocalidad")){
+            insertarLocalidad(orden);
+        }
+        if(split[0].equalsIgnoreCase("addmunicipio")){
+            insertarMunicipio(orden);
+        }
+        if(split[0].equalsIgnoreCase("addprovincia")){
+            insertarProvincia(orden);
+        }
+    }
+    public static void prompt(){
+        System.out.println("Que desea hacer?");
+    }
     }

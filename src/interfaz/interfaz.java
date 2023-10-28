@@ -28,25 +28,33 @@ public class Interfaz implements Serializable
     {
         Scanner sc = new Scanner (System.in);
         String nombre_provincia;
+        boolean keepgoing_p = true;
         do
         {
             System.out.print ("Introduzca el nombre de la provincia(enter para finalizar): ");
             nombre_provincia =sc.nextLine(); 
+            if(nombre_provincia.equalsIgnoreCase("")){System.out.println("Lectura terminada.");break;}
             if (nombre_provincia!="")
             {
                 Provincia p = new Provincia(nombre_provincia);
                 String nombre_localidad;
                 String nombre_municipio;
+                boolean keepgoing_m = true;
                 do
                 {
                     System.out.print ("Introduzca el nombre del municipio (enter para finalizar): ");
-                    nombre_municipio =sc.nextLine(); 
+                    nombre_municipio =sc.nextLine();
+                    if(nombre_municipio.equalsIgnoreCase("")){break;}
                     Municipio m =new Municipio(nombre_municipio);
                     p.addMunicipio (m); 
                     Localidad l;
+                    boolean keepgoing_l = true;
                     do{
                         System.out.print ("Introduzca el nombre de la localidad  (enter para finalizar): ");
                         nombre_localidad =sc.nextLine();
+                        if(nombre_localidad.equalsIgnoreCase("")){
+                            break;
+                        }
                         System.out.println("Introduzca el numero de habitantes");
                         String input_habitantes = sc.nextLine();
                         int num_habitantes = 0;
@@ -60,12 +68,12 @@ public class Interfaz implements Serializable
                         l = new Localidad(nombre_localidad,num_habitantes);
                         m.addLocalidad(l);
 
-                    }while(nombre_localidad != "");
+                    }while(keepgoing_l);
                     provincias.add(p);
-                }while(nombre_municipio != "");
-            }//if (nombre_provincias!="")
+                }while(keepgoing_m);
+            }
         }
-        while (nombre_provincia!="");
+        while (keepgoing_p);
         return provincias;
         }
         public static void insertarProvincia(String peticion){
@@ -132,7 +140,7 @@ public class Interfaz implements Serializable
             else{System.out.println("No se encontro el municipio.");}
         }
         public static void help(){
-            System.out.println("Los metodos son:\n \"salir\" para salir \n \"help\" para ayuda \n \"mostrar\" para mostrar localidades, municipios y provincias \n \"addlocalidad\" + municipio + nombre + habitantes \n  \"addmunicipio\" + provincia + nombre \n \"addprovincia\" + nombre ");
+            System.out.println("Los metodos son:\n \"salir\" para salir \n \"input\" para lectura inicial de datos \n \"help\" para ayuda \n \"mostrar\" para mostrar localidades, municipios y provincias \n \"addlocalidad\" + municipio + nombre + habitantes \n  \"addmunicipio\" + provincia + nombre \n \"addprovincia\" + nombre ");
         }
         
         public static void mostrar(){   
@@ -190,6 +198,9 @@ public class Interfaz implements Serializable
         }
     public static void choiceMaker(String orden){
         String [] split = orden.split(" ");
+        if(split[0].equalsIgnoreCase("input")){
+            leer();
+        }
         if(split[0].equalsIgnoreCase("mostrar")){
             mostrar();
         }

@@ -11,19 +11,22 @@ import java.io.FileOutputStream;
 public class Interfaz implements Serializable
 {
 
-    public static ArrayList <Provincia> provincias= new ArrayList <>();
+    public  ArrayList <Provincia> provincias= new ArrayList <>();
     public Interfaz(){
     ObjectInputStream obj;
     File file = new File("provincias.txt");
     try{
         obj = new ObjectInputStream(new FileInputStream(file));
-        provincias = (ArrayList <Provincia>)obj.readObject();
+        provincias = (ArrayList<Provincia>)obj.readObject();
+        obj.close();
+        System.out.println("leido");
     } catch(Exception e){
+        System.out.println("no leido");
         provincias = new ArrayList<>();
     };
 }
 
-    public static ArrayList <Provincia> leer ()
+    public  ArrayList <Provincia> leer ()
 
     {
         Scanner sc = new Scanner (System.in);
@@ -76,7 +79,7 @@ public class Interfaz implements Serializable
         while (keepgoing_p);
         return provincias;
         }
-        public static void insertarProvincia(String peticion){
+        public  void insertarProvincia(String peticion){
             String [] split = peticion.split(" ");
             String nombre_provincia = split[1];
             System.out.println(nombre_provincia);
@@ -89,7 +92,7 @@ public class Interfaz implements Serializable
             }
         }
 
-        public static void insertarMunicipio(String peticion){
+        public  void insertarMunicipio(String peticion){
             String [] split = peticion.split(" ");
             String nombre_prov = split[1];
             String nombre_mun = split[2];
@@ -110,7 +113,7 @@ public class Interfaz implements Serializable
             }
         }
 
-        public static void insertarLocalidad(String peticion){
+        public  void insertarLocalidad(String peticion){
             String[] split = peticion.split(" ");
             String nombre_loc = split[2];
             String nombre_mun = split[1];
@@ -139,11 +142,11 @@ public class Interfaz implements Serializable
             }
             else{System.out.println("No se encontro el municipio.");}
         }
-        public static void help(){
+        public  void help(){
             System.out.println("Los metodos son:\n \"salir\" para salir \n \"input\" para lectura inicial de datos \n \"help\" para ayuda \n \"mostrar\" para mostrar localidades, municipios y provincias \n \"addlocalidad\" + municipio + nombre + habitantes \n  \"addmunicipio\" + provincia + nombre \n \"addprovincia\" + nombre ");
         }
         
-        public static void mostrar(){   
+        public  void mostrar(){   
             System.out.println("funciona");
             // System.out.println(provincias);
             for(Provincia p : provincias){
@@ -156,18 +159,19 @@ public class Interfaz implements Serializable
                 }
             }
         }
-        public static String leerPeticion(Scanner sc){
+        public  String leerPeticion(Scanner sc){
             String peticion = sc.nextLine();
             return peticion;
         }
-        public static boolean procesarPeticion(String orden){
+        public  boolean procesarPeticion(String orden){
             String[] p = orden.split(" ");
             if(orden.equalsIgnoreCase("salir")){
                 ObjectOutputStream obj;
                 File file = new File("provincias.txt");
                 try{
                     obj = new ObjectOutputStream(new FileOutputStream(file));
-                    obj.writeObject(obj);
+                    obj.writeObject(provincias);
+                    obj.close();
                     System.out.println("Guardado");
                 } catch(Exception e){
                 System.out.println("Error al guardar");
@@ -196,7 +200,7 @@ public class Interfaz implements Serializable
             }
             return true;
         }
-    public static void choiceMaker(String orden){
+    public  void choiceMaker(String orden){
         String [] split = orden.split(" ");
         if(split[0].equalsIgnoreCase("input")){
             leer();
@@ -217,7 +221,7 @@ public class Interfaz implements Serializable
             insertarProvincia(orden);
         }
     }
-    public static void prompt(){
+    public  void prompt(){
         System.out.println("Que desea hacer?");
     }
     }

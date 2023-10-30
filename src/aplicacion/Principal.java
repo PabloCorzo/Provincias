@@ -5,14 +5,15 @@ import java.util.Scanner;
 public class Principal {
     public static void main(String[] args) {
         String peticion;
+        Interfaz i = new Interfaz();
         Scanner sc = new Scanner(System.in);
-        Interfaz.help();
+        i.help();
         do {
-            Interfaz.prompt();
-            peticion = Interfaz.leerPeticion(sc);
+            i.prompt();
+            peticion = i.leerPeticion(sc);
             System.out.println("Peticion: " + peticion);
-            Interfaz.choiceMaker(peticion);
-        }while(Interfaz.procesarPeticion(peticion));
+            i.choiceMaker(peticion);
+        }while(i.procesarPeticion(peticion));
         sc.close();
     }
 }

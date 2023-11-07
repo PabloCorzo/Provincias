@@ -10,7 +10,7 @@ import java.io.FileOutputStream;
 
 public class Interfaz implements Serializable
 {
-
+    //contactos y libreta.getcontactos() son diferentes
     public  ArrayList <Provincia> provincias= new ArrayList <>();
     public Interfaz(){
     ObjectInputStream obj;
